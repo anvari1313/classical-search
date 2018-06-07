@@ -1,5 +1,6 @@
 package com.github.anvari1313.classicalsearch.problem;
 
+import java.util.HashSet;
 import java.util.List;
 
 public interface Problem <ProblemState, ProblemAction>{
@@ -14,7 +15,7 @@ public interface Problem <ProblemState, ProblemAction>{
      * @param s A ProblemState
      * @return A list of ProblemActions
      */
-    public List<ProblemAction> getActions(ProblemState s);
+    public HashSet<ProblemAction> getActions(ProblemState s);
 
     /**
      * Returns the result of the current action on state s

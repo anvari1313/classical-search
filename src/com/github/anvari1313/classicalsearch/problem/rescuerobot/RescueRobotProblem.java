@@ -4,6 +4,7 @@ import com.github.anvari1313.classicalsearch.problem.Problem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class RescueRobotProblem implements Problem<RescueRobotProblemState, RescueRobotProblemAction> {
@@ -36,8 +37,8 @@ public class RescueRobotProblem implements Problem<RescueRobotProblemState, Resc
     }
 
     @Override
-    public List<RescueRobotProblemAction> getActions(RescueRobotProblemState s) {
-        List<RescueRobotProblemAction> validActions = new ArrayList<>(4);
+    public HashSet<RescueRobotProblemAction> getActions(RescueRobotProblemState s) {
+        HashSet<RescueRobotProblemAction> validActions = new HashSet<>();
         if (s.getCurrentCol() > 0)
             if (!isRestrictMove(s.getCurrentCol() - 1, s.getCurrentRow()))
                 validActions.add(new RescueRobotProblemAction(RescueRobotProblemAction.RescueRobotProblemActions.L));

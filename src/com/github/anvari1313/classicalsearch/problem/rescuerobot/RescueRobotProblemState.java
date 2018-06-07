@@ -25,4 +25,9 @@ public class RescueRobotProblemState extends ProblemState {
                 (((RescueRobotProblemState) o).currentRow == this.currentRow) &&
                 (((RescueRobotProblemState) o).currentCol == this.currentCol);
     }
+
+    @Override
+    public String toString() {
+        return String.format("State (%d, %d)", this.currentRow, this.currentCol);
+    }
 }

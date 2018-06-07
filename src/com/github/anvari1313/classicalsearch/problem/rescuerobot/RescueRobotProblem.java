@@ -1,50 +1,109 @@
 package com.github.anvari1313.classicalsearch.problem.rescuerobot;
 
 import com.github.anvari1313.classicalsearch.problem.Problem;
-import com.github.anvari1313.classicalsearch.problem.ProblemAction;
-import com.github.anvari1313.classicalsearch.problem.ProblemState;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class RescueRobotProblem implements Problem {
-    private int[][] enviroment;
+public class RescueRobotProblem implements Problem<RescueRobotProblemState, RescueRobotProblemAction> {
+    private int[][] enviroment;                             // Just making a storage for saving some values if needed
 
-    public RescueRobotProblem(){
+    private int colCount;
+    private int rowCount;
 
+    private List<UnConnectedNeighbourCell> restrictions;
+
+    private RescueRobotProblemState startState;
+    private RescueRobotProblemState goalState;
+
+
+    public RescueRobotProblem(int m, int n, List<int[]> r, int startPosition[], int goalPosition[]){
+        this.rowCount = m;
+        this.colCount = n;
+        this.enviroment = new int[this.rowCount][this.colCount];
+
+        r.forEach(item -> restrictions.add(new UnConnectedNeighbourCell(item)));
+        this.startState = new RescueRobotProblemState(startPosition[0], startPosition[1]);
+        this.goalState = new RescueRobotProblemState(goalPosition[0], goalPosition[1]);
+    }
+
+
+    @Override
+    public RescueRobotProblemState getInitState() {
+        return startState;
     }
 
     @Override
-    public ProblemState getInitState() {
-        return null;
+    public List<RescueRobotProblemAction> getActions(RescueRobotProblemState s) {
+        List<RescueRobotProblemAction> validActions = new ArrayList<>(4);
+        if (s.getCurrentCol() > 0)
+            if (!isRestrictMove(s.getCurrentCol() - 1, s.getCurrentRow()))
+                validActions.add(new RescueRobotProblemAction(RescueRobotProblemAction.RescueRobotProblemActions.L));
+
+        if (s.getCurrentCol() < this.colCount)
+            if (!isRestrictMove(s.getCurrentCol() + 1, s.getCurrentRow()))
+                validActions.add(new RescueRobotProblemAction(RescueRobotProblemAction.RescueRobotProblemActions.R));
+
+        if (s.getCurrentRow() > 0)
+            if (!isRestrictMove(s.getCurrentCol(), s.getCurrentRow() - 1))
+                validActions.add(new RescueRobotProblemAction(RescueRobotProblemAction.RescueRobotProblemActions.U));
+
+        if (s.getCurrentRow() < this.rowCount)
+            if (!isRestrictMove(s.getCurrentCol(), s.getCurrentRow() + 1))
+                validActions.add(new RescueRobotProblemAction(RescueRobotProblemAction.RescueRobotProblemActions.D));
+
+        return validActions;
+    }
+
+    private boolean isRestrictMove(int nextCol, int nextRow){
+        /**
+         * Check whether the move is in the restricted list
+         */
+        return this.restrictions.contains(new UnConnectedNeighbourCell(
+                this.startState.getCurrentCol(), this.startState.getCurrentRow(),
+                nextCol, nextRow
+        ));
     }
 
     @Override
-    public List<ProblemAction> getActions(ProblemState s) {
-        return null;
+    public RescueRobotProblemState getResult(RescueRobotProblemState s, RescueRobotProblemAction a) {
+        RescueRobotProblemState nextState = null;
+
+        switch (a.getAction()){
+            case D:
+                nextState = new RescueRobotProblemState(s.getCurrentCol(), s.getCurrentRow() + 1);
+                break;
+            case L:
+                nextState = new RescueRobotProblemState(s.getCurrentCol() - 1, s.getCurrentRow());
+                break;
+            case R:
+                nextState = new RescueRobotProblemState(s.getCurrentCol() + 1, s.getCurrentRow());
+                break;
+            case U:
+                nextState = new RescueRobotProblemState(s.getCurrentCol(), s.getCurrentRow() - 1);
+                break;
+        }
+
+        return nextState;
     }
 
     @Override
-    public ProblemState getResult(ProblemState s, ProblemAction a) {
-        return null;
+    public boolean goalTest(RescueRobotProblemState s) {
+        return s.equals(goalState);
     }
 
     @Override
-    public boolean goalTest(ProblemState s) {
-        return false;
-    }
-
-    @Override
-    public double pathCost(ProblemState initState, List<ProblemAction> actions) {
+    public double pathCost(RescueRobotProblemState initState, List<RescueRobotProblemAction> rescueRobotProblemActions) {
         return 0;
     }
 
     @Override
-    public double stepCost(ProblemState state, ProblemAction action) {
+    public double stepCost(RescueRobotProblemState rescueRobotProblemState, RescueRobotProblemAction rescueRobotProblemAction) {
         return 0;
     }
 
     @Override
-    public double heuristic(ProblemState s) {
+    public double heuristic(RescueRobotProblemState s) {
         return 0;
     }
 }
@@ -55,10 +114,26 @@ class UnConnectedNeighbourCell{
     private int col2;
     private int row2;
 
-    public UnConnectedNeighbourCell(int c1, int r1, int c2, int r2){
-        this.col1 = c1;
-        this.col2 = c2;
-        this.row1 = r1;
-        this.row2 = r2;
+    UnConnectedNeighbourCell(int c1, int r1, int c2, int r2){
+        /**
+         * In this function the values are sorted due to c values of cells
+         */
+        this.col1 = (c1 < c2) ? c1 : c2;
+        this.col2 = (c1 < c2) ? c2 : c1;
+        this.row1 = (c1 < c2) ? r1 : r2;
+        this.row2 = (c1 < c2) ? r2 : r1;
+    }
+
+    UnConnectedNeighbourCell(int []values){
+        this(values[0], values[1], values[2], values[3]);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        return (o instanceof UnConnectedNeighbourCell) &&
+                (((UnConnectedNeighbourCell) o).col1 == this.col1) &&
+                (((UnConnectedNeighbourCell) o).col2 == this.col2) &&
+                (((UnConnectedNeighbourCell) o).row1 == this.row1) &&
+                (((UnConnectedNeighbourCell) o).row2 == this.row2);
     }
 }

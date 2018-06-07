@@ -2,7 +2,7 @@ package com.github.anvari1313.classicalsearch.problem;
 
 import java.util.List;
 
-public interface Problem <ProblemState, ProblemAction, Search>{
+public interface Problem <ProblemState, ProblemAction>{
     /**
      * Get the initial state of the problem
      * @return ProblemState class

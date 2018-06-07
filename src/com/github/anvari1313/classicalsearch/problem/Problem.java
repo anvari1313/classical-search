@@ -3,19 +3,22 @@ package com.github.anvari1313.classicalsearch.problem;
 import java.util.HashSet;
 import java.util.List;
 
-public interface Problem <ProblemState, ProblemAction>{
+public abstract class Problem <ProblemState, ProblemAction>{
+    protected HashSet<ProblemState> visitedState = new HashSet<>();
+    protected HashSet<ProblemState> expandedState = new HashSet<>();
+
     /**
      * Get the initial state of the problem
      * @return ProblemState class
      */
-    public ProblemState getInitState();
+    public abstract ProblemState getInitState();
 
     /**
      * Get all available actions in the current state s.
      * @param s A ProblemState
      * @return A list of ProblemActions
      */
-    public HashSet<ProblemAction> getActions(ProblemState s);
+    public abstract HashSet<ProblemAction> getActions(ProblemState s);
 
     /**
      * Returns the result of the current action on state s
@@ -23,14 +26,14 @@ public interface Problem <ProblemState, ProblemAction>{
      * @param a ProblemAction
      * @return ProblemState
      */
-    public ProblemState getResult(ProblemState s, ProblemAction a);
+    public abstract ProblemState getResult(ProblemState s, ProblemAction a);
 
     /**
      * Test whether the current state is the goal state or not
      * @param s ProblemState
      * @return A bool indicate goal or not
      */
-    public boolean goalTest(ProblemState s);
+    public abstract boolean goalTest(ProblemState s);
 
     /**
      * Calculate the cost of path starting with initState and with actions
@@ -38,7 +41,7 @@ public interface Problem <ProblemState, ProblemAction>{
      * @param actions Sequence of actions
      * @return Double value of cost
      */
-    public double pathCost(ProblemState initState, List<ProblemAction> actions);
+    public abstract double pathCost(ProblemState initState, List<ProblemAction> actions);
 
     /**
      * Calculate the cost of step on state s and action a
@@ -46,8 +49,16 @@ public interface Problem <ProblemState, ProblemAction>{
      * @param action ProblemAction
      * @return Double value of Cost
      */
-    public double stepCost(ProblemState state, ProblemAction action);
+    public abstract double stepCost(ProblemState state, ProblemAction action);
 
 
-    public double heuristic(ProblemState s);
+    public abstract double heuristic(ProblemState s);
+
+    public void visitState(ProblemState s){
+        this.visitedState.add(s);
+    }
+
+    public boolean isVisited(ProblemState s){
+        return this.visitedState.contains(s);
+    }
 }

@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-public class RescueRobotProblem implements Problem<RescueRobotProblemState, RescueRobotProblemAction> {
+public class RescueRobotProblem extends Problem<RescueRobotProblemState, RescueRobotProblemAction> {
     private int[][] enviroment;                             // Just making a storage for saving some values if needed
 
     private int colCount;
@@ -25,7 +25,6 @@ public class RescueRobotProblem implements Problem<RescueRobotProblemState, Resc
         this.enviroment = new int[this.rowCount][this.colCount];
         this.restrictions = new ArrayList<>();
         Arrays.asList(r).forEach(item -> restrictions.add(new UnConnectedNeighbourCell(item)));
-        System.out.println(restrictions);
         this.startState = new RescueRobotProblemState(startPosition[1], startPosition[0]);
         this.goalState = new RescueRobotProblemState(goalPosition[1], goalPosition[0]);
     }

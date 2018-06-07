@@ -18,4 +18,11 @@ public class RescueRobotProblemState extends ProblemState {
     public int getCurrentRow() {
         return currentRow;
     }
+
+    @Override
+    public boolean equals(ProblemState o) {
+        return o instanceof RescueRobotProblemState &&
+                (((RescueRobotProblemState) o).currentRow == this.currentRow) &&
+                (((RescueRobotProblemState) o).currentCol == this.currentCol);
+    }
 }

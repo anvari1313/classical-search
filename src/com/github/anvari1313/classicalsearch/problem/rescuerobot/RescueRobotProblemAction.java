@@ -19,4 +19,9 @@ public class RescueRobotProblemAction extends ProblemAction {
     public RescueRobotProblemActions getAction() {
         return action;
     }
+
+    @Override
+    public String toString() {
+        return action.toString();
+    }
 }

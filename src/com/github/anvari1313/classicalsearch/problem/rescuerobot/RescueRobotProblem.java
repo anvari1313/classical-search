@@ -25,8 +25,8 @@ public class RescueRobotProblem implements Problem<RescueRobotProblemState, Resc
         this.restrictions = new ArrayList<>();
         Arrays.asList(r).forEach(item -> restrictions.add(new UnConnectedNeighbourCell(item)));
         System.out.println(restrictions);
-        this.startState = new RescueRobotProblemState(startPosition[0], startPosition[1]);
-        this.goalState = new RescueRobotProblemState(goalPosition[0], goalPosition[1]);
+        this.startState = new RescueRobotProblemState(startPosition[1], startPosition[0]);
+        this.goalState = new RescueRobotProblemState(goalPosition[1], goalPosition[0]);
     }
 
 

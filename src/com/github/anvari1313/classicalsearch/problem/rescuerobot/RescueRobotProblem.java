@@ -5,7 +5,7 @@ import com.github.anvari1313.classicalsearch.problem.Problem;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RescueRobotProblem implements Problem<RescueRobotProblemState, RescueRobotProblemAction> {
+public class RescueRobotProblem<Search> implements Problem<RescueRobotProblemState, RescueRobotProblemAction, Search> {
     private int[][] enviroment;                             // Just making a storage for saving some values if needed
 
     private int colCount;

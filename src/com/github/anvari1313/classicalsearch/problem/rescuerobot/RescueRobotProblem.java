@@ -3,6 +3,7 @@ package com.github.anvari1313.classicalsearch.problem.rescuerobot;
 import com.github.anvari1313.classicalsearch.problem.Problem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class RescueRobotProblem implements Problem<RescueRobotProblemState, RescueRobotProblemAction> {
@@ -17,12 +18,12 @@ public class RescueRobotProblem implements Problem<RescueRobotProblemState, Resc
     private RescueRobotProblemState goalState;
 
 
-    public RescueRobotProblem(int m, int n, List<int[]> r, int startPosition[], int goalPosition[]){
+    public RescueRobotProblem(int m, int n, int[][]r, int startPosition[], int goalPosition[]){
         this.rowCount = m;
         this.colCount = n;
         this.enviroment = new int[this.rowCount][this.colCount];
 
-        r.forEach(item -> restrictions.add(new UnConnectedNeighbourCell(item)));
+        Arrays.asList(r).forEach(item -> restrictions.add(new UnConnectedNeighbourCell(item)));
         this.startState = new RescueRobotProblemState(startPosition[0], startPosition[1]);
         this.goalState = new RescueRobotProblemState(goalPosition[0], goalPosition[1]);
     }

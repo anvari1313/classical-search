@@ -30,4 +30,9 @@ public class RescueRobotProblemState extends ProblemState {
     public String toString() {
         return String.format("State (%d, %d)", this.currentRow, this.currentCol);
     }
+
+    @Override
+    public int hashCode() {
+        return this.currentCol + this.currentRow * 5000;
+    }
 }

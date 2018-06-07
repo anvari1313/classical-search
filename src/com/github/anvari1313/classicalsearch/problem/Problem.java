@@ -48,5 +48,5 @@ public interface Problem {
     public double stepCost(ProblemState state, ProblemAction action);
 
 
-    public double heioristic(ProblemState s);
+    public double heuristic(ProblemState s);
 }

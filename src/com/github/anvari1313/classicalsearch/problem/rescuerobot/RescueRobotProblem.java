@@ -18,12 +18,13 @@ public class RescueRobotProblem implements Problem<RescueRobotProblemState, Resc
     private RescueRobotProblemState goalState;
 
 
-    public RescueRobotProblem(int m, int n, int[][]r, int startPosition[], int goalPosition[]){
-        this.rowCount = m;
-        this.colCount = n;
+    public RescueRobotProblem(int n, int m, int[][]r, int startPosition[], int goalPosition[]){
+        this.rowCount = n;
+        this.colCount = m;
         this.enviroment = new int[this.rowCount][this.colCount];
-
+        this.restrictions = new ArrayList<>();
         Arrays.asList(r).forEach(item -> restrictions.add(new UnConnectedNeighbourCell(item)));
+        System.out.println(restrictions);
         this.startState = new RescueRobotProblemState(startPosition[0], startPosition[1]);
         this.goalState = new RescueRobotProblemState(goalPosition[0], goalPosition[1]);
     }
@@ -41,7 +42,7 @@ public class RescueRobotProblem implements Problem<RescueRobotProblemState, Resc
             if (!isRestrictMove(s.getCurrentCol() - 1, s.getCurrentRow()))
                 validActions.add(new RescueRobotProblemAction(RescueRobotProblemAction.RescueRobotProblemActions.L));
 
-        if (s.getCurrentCol() < this.colCount)
+        if (s.getCurrentCol() < this.colCount - 1)
             if (!isRestrictMove(s.getCurrentCol() + 1, s.getCurrentRow()))
                 validActions.add(new RescueRobotProblemAction(RescueRobotProblemAction.RescueRobotProblemActions.R));
 
@@ -49,7 +50,7 @@ public class RescueRobotProblem implements Problem<RescueRobotProblemState, Resc
             if (!isRestrictMove(s.getCurrentCol(), s.getCurrentRow() - 1))
                 validActions.add(new RescueRobotProblemAction(RescueRobotProblemAction.RescueRobotProblemActions.U));
 
-        if (s.getCurrentRow() < this.rowCount)
+        if (s.getCurrentRow() < this.rowCount - 1)
             if (!isRestrictMove(s.getCurrentCol(), s.getCurrentRow() + 1))
                 validActions.add(new RescueRobotProblemAction(RescueRobotProblemAction.RescueRobotProblemActions.D));
 
@@ -136,5 +137,10 @@ class UnConnectedNeighbourCell{
                 (((UnConnectedNeighbourCell) o).col2 == this.col2) &&
                 (((UnConnectedNeighbourCell) o).row1 == this.row1) &&
                 (((UnConnectedNeighbourCell) o).row2 == this.row2);
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%d,%d) (%d,%d)", this.row1, this.col1, this.row2, this.col2);
     }
 }

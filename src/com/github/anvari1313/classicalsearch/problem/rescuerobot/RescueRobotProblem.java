@@ -73,18 +73,20 @@ public class RescueRobotProblem extends Problem<RescueRobotProblemState, RescueR
 
         switch (a.getAction()){
             case D:
-                nextState = new RescueRobotProblemState(s.getCurrentCol(), s.getCurrentRow() + 1);
+                nextState = new RescueRobotProblemState(s.getCurrentCol(), s.getCurrentRow() + 1, s.getActionSequence());
                 break;
             case L:
-                nextState = new RescueRobotProblemState(s.getCurrentCol() - 1, s.getCurrentRow());
+                nextState = new RescueRobotProblemState(s.getCurrentCol() - 1, s.getCurrentRow(), s.getActionSequence());
                 break;
             case R:
-                nextState = new RescueRobotProblemState(s.getCurrentCol() + 1, s.getCurrentRow());
+                nextState = new RescueRobotProblemState(s.getCurrentCol() + 1, s.getCurrentRow(), s.getActionSequence());
                 break;
             case U:
-                nextState = new RescueRobotProblemState(s.getCurrentCol(), s.getCurrentRow() - 1);
+                nextState = new RescueRobotProblemState(s.getCurrentCol(), s.getCurrentRow() - 1, s.getActionSequence());
                 break;
         }
+
+        nextState.addActionSequence(a);
 
         return nextState;
     }

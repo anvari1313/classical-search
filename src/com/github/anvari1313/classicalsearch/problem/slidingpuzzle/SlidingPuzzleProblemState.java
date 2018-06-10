@@ -56,4 +56,8 @@ public class SlidingPuzzleProblemState extends ProblemState {
     public int getZeroRow() {
         return zeroRow;
     }
+
+    public int[][] getTable() {
+        return table;
+    }
 }

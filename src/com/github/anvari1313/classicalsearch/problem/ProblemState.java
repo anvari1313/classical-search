@@ -6,7 +6,7 @@ import java.util.List;
 public abstract class ProblemState {
     private List<ProblemAction> actionSequence;
 
-    public ProblemState(){
+    public ProblemState() {
         actionSequence = new LinkedList<>();
     }
 
@@ -23,5 +23,13 @@ public abstract class ProblemState {
         return actionSequence;
     }
 
-    public abstract boolean equals(ProblemState o);
+    public abstract boolean equalityCheck(ProblemState o);
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof ProblemState)
+            return this.equalityCheck((ProblemState) o);
+        else
+            return false;
+    }
 }

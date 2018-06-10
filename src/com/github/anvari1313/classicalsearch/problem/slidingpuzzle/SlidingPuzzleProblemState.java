@@ -60,4 +60,18 @@ public class SlidingPuzzleProblemState extends ProblemState {
     public int[][] getTable() {
         return table;
     }
+
+    @Override
+    public String toString() {
+        String s = "[\n";
+        for (int i = 0; i < SlidingPuzzleProblem.PUZZLE_SIZE; i++) {
+            s += "\t[ ";
+            for (int j = 0; j < SlidingPuzzleProblem.PUZZLE_SIZE; j++) {
+                s += table[i][j] + " ";
+            }
+            s += "\t],\n";
+        }
+        s += "]";
+        return s;
+    }
 }

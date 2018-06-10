@@ -8,7 +8,7 @@ public class SlidingPuzzleProblemAction extends ProblemAction {
         U,  // Stands for move to up
         L,  // Stands for move to left
         D   // Stands for move to down
-    };
+    }
 
     private SlidingPuzzleProblemActions action;
 

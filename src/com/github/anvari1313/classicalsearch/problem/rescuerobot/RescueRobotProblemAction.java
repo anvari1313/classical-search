@@ -8,7 +8,7 @@ public class RescueRobotProblemAction extends ProblemAction {
         U,  // Stands for move to up
         L,  // Stands for move to left
         D   // Stands for move to down
-    };
+    }
 
     private RescueRobotProblemActions action;
 

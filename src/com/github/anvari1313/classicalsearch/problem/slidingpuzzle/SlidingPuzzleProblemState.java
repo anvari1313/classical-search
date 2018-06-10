@@ -27,6 +27,17 @@ public class SlidingPuzzleProblemState extends ProblemState {
 
     @Override
     public boolean equalityCheck(ProblemState o) {
-        return false;
+        if (o instanceof SlidingPuzzleProblemState) {
+            for (int i = 0; i < table.length; i++) {
+                for (int j = 0; j < table[i].length; j++) {
+                    if (table[i][j] != ((SlidingPuzzleProblemState) o).table[i][j])
+                        return false;
+                }
+
+            }
+
+            return true;
+        } else
+            return false;
     }
 }

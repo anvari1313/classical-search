@@ -26,8 +26,19 @@ public class RubixCubeProblemState extends ProblemState {
      * 4    ->  Left
      * 5    ->  Right
      */
+    private final int TOP_SIDE = 0;
+    private final int FRONT_SIDE = 1;
+    private final int BOTTOM_SIDE = 2;
+    private final int BACK_SIDE = 3;
+    private final int LEFT_SIDE = 4;
+    private final int RIGHT_SIDE = 5;
+
     private RubixCubeSlideColors[][][] cubeValues;
 
+    /**
+     * Constructor for making the init state
+     * @param colorsStream
+     */
     public RubixCubeProblemState(RubixCubeSlideColors colorsStream[]){
         cubeValues = new RubixCubeSlideColors[6][SIDE_DIMENSION_SIZE][SIDE_DIMENSION_SIZE];
 
@@ -60,6 +71,122 @@ public class RubixCubeProblemState extends ProblemState {
             return false;
     }
 
+    public RubixCubeSlideColors[][][] rotateTopClockwise(){
+        RubixCubeSlideColors[][][] result = new RubixCubeSlideColors[6][SIDE_DIMENSION_SIZE][SIDE_DIMENSION_SIZE];
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < SIDE_DIMENSION_SIZE; j++) {
+                for (int k = 0; k < SIDE_DIMENSION_SIZE; k++) {
+                    result[i][j][k] = cubeValues[i][j][k];
+                }
+            }
+        }
+        RubixCubeSlideColors temp;
+
+        // Rotating top side
+        temp = result[TOP_SIDE][1][0];
+        result[TOP_SIDE][1][0] = result[TOP_SIDE][1][1];
+        result[TOP_SIDE][1][1] = result[TOP_SIDE][0][1];
+        result[TOP_SIDE][0][1] = result[TOP_SIDE][0][0];
+        result[TOP_SIDE][0][0] = temp;
+
+        // Rotating left, front, right, back sides
+        // Row 0
+        temp = result[RIGHT_SIDE][0][0];
+        result[RIGHT_SIDE][0][0] = result[RIGHT_SIDE][0][1];
+        result[RIGHT_SIDE][0][1] = result[FRONT_SIDE][0][0];
+        result[FRONT_SIDE][0][0] = result[FRONT_SIDE][0][1];
+        result[FRONT_SIDE][0][1] = result[LEFT_SIDE][0][0];
+        result[LEFT_SIDE][0][0] = result[LEFT_SIDE][0][1];
+        result[LEFT_SIDE][0][1] = result[BACK_SIDE][1][0];
+        result[BACK_SIDE][1][0] = result[BACK_SIDE][1][1];
+        result[BACK_SIDE][1][1] = temp;
+
+        // Row 1
+        temp = result[RIGHT_SIDE][1][0];
+        result[RIGHT_SIDE][1][0] = result[RIGHT_SIDE][1][1];
+        result[RIGHT_SIDE][1][1] = result[FRONT_SIDE][1][0];
+        result[FRONT_SIDE][1][0] = result[FRONT_SIDE][1][1];
+        result[FRONT_SIDE][1][1] = result[LEFT_SIDE][1][0];
+        result[LEFT_SIDE][1][0] = result[LEFT_SIDE][1][1];
+        result[LEFT_SIDE][1][1] = result[BACK_SIDE][0][0];
+        result[BACK_SIDE][0][0] = result[BACK_SIDE][0][1];
+        result[BACK_SIDE][0][1] = temp;
+
+        // Rotating bottom side
+        temp = result[BOTTOM_SIDE][0][0];
+        result[BOTTOM_SIDE][0][0] = result[BOTTOM_SIDE][0][1];
+        result[BOTTOM_SIDE][0][1] = result[BOTTOM_SIDE][1][1];
+        result[BOTTOM_SIDE][1][1] = result[BOTTOM_SIDE][1][0];
+        result[BOTTOM_SIDE][1][0] = temp;
+
+        return result;
+    }
+    public RubixCubeSlideColors[][][] rotateTopCounterClockwise(){
+        RubixCubeSlideColors[][][] result = new RubixCubeSlideColors[6][SIDE_DIMENSION_SIZE][SIDE_DIMENSION_SIZE];
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < SIDE_DIMENSION_SIZE; j++) {
+                for (int k = 0; k < SIDE_DIMENSION_SIZE; k++) {
+                    result[i][j][k] = cubeValues[i][j][k];
+                }
+            }
+        }
+
+        return result;
+    }
+    public RubixCubeSlideColors[][][] rotateFrontClockwise(){
+        RubixCubeSlideColors[][][] result = new RubixCubeSlideColors[6][SIDE_DIMENSION_SIZE][SIDE_DIMENSION_SIZE];
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < SIDE_DIMENSION_SIZE; j++) {
+                for (int k = 0; k < SIDE_DIMENSION_SIZE; k++) {
+                    result[i][j][k] = cubeValues[i][j][k];
+                }
+            }
+        }
+
+        return result;
+    }
+    public RubixCubeSlideColors[][][] rotateFrontCounterClockwise(){
+        RubixCubeSlideColors[][][] result = new RubixCubeSlideColors[6][SIDE_DIMENSION_SIZE][SIDE_DIMENSION_SIZE];
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < SIDE_DIMENSION_SIZE; j++) {
+                for (int k = 0; k < SIDE_DIMENSION_SIZE; k++) {
+                    result[i][j][k] = cubeValues[i][j][k];
+                }
+            }
+        }
+
+        return result;
+    }
+    public RubixCubeSlideColors[][][] rotateRightClockwise(){
+        RubixCubeSlideColors[][][] result = new RubixCubeSlideColors[6][SIDE_DIMENSION_SIZE][SIDE_DIMENSION_SIZE];
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < SIDE_DIMENSION_SIZE; j++) {
+                for (int k = 0; k < SIDE_DIMENSION_SIZE; k++) {
+                    result[i][j][k] = cubeValues[i][j][k];
+                }
+            }
+        }
+
+        return result;
+    }
+    public RubixCubeSlideColors[][][] rotateRightCounterClockwise(){
+        RubixCubeSlideColors[][][] result = new RubixCubeSlideColors[6][SIDE_DIMENSION_SIZE][SIDE_DIMENSION_SIZE];
+
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < SIDE_DIMENSION_SIZE; j++) {
+                for (int k = 0; k < SIDE_DIMENSION_SIZE; k++) {
+                    result[i][j][k] = cubeValues[i][j][k];
+                }
+            }
+        }
+
+        return result;
+    }
 
     @Override
     public String toString() {
